@@ -19,12 +19,11 @@ namespace Assignment3_NilavarasuKumar.Controllers
     {
         private readonly Assignment3CV_NilavarasuKumarContext _context;
         private readonly ICompositeViewEngine _viewEngine;
-        //private readonly PdfService _pdfService;
+
 
         public CVModelsController(Assignment3CV_NilavarasuKumarContext context, ICompositeViewEngine viewEngine)
         {
             _context = context;
-            //_pdfService = pdfService;
             _viewEngine = viewEngine;
         }
 
@@ -186,7 +185,7 @@ namespace Assignment3_NilavarasuKumar.Controllers
             return _context.CVModel.Any(e => e.Id == id);
         }
 
-        //Template Preview
+        //Template Preview -- This action gets called when the user clicks on the preview template button
         public async Task<IActionResult> TemplatePreview(string template, int? id)
         {
 
@@ -202,16 +201,18 @@ namespace Assignment3_NilavarasuKumar.Controllers
             {
                 return NotFound("\"CVModel with ID {id} not found..");
             }
+
             ViewBag.UseLayout = false;
             ViewData["Layout"] = null;
+
             // Render the appropriate template view
             if (template == "template1")
             {
-                return View("ResumeTemplate", cVModel); // Pass the model to the view
+                return View("ResumeTemplate", cVModel); // Pass the model to the template page
             }
             else if (template == "template2")
             {
-                return View("ResumeTemplate2", cVModel); // Pass the model to the second view
+                return View("ResumeTemplate2", cVModel); // Pass the model to the template page
             }
             else
             {

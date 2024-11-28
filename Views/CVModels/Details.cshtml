@@ -5,7 +5,7 @@
 }
 
 <h1>Details</h1>
-
+@* User Resume Details*@
 <div>
     <h4>Resume Details</h4>
     <hr />
@@ -136,7 +136,7 @@
 
 
 <hr />
-
+@* Preview template containers*@
 <div>
     <h4>Preview Templates</h4>
     <div class="d-flex justify-content-around">
@@ -154,7 +154,7 @@
 </div>
 
 <hr />
-
+@* Dropdown to select the prefered template*@
 <div>
     <h4 style="margin-top:40px">Choose Your CV Template To Download</h4>
     <form asp-action="GeneratePdf" method="get">
@@ -173,5 +173,5 @@
 <div class="back-edit-box">
     <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index" class="btn btn-dark">Back to List</a>
-  @* <a asp-action="GeneratePdf" asp-route-id="@Model?.Id" class="btn btn-success">Download PDF Resume</a>*@ 
+  
 </div>

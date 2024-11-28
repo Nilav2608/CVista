@@ -169,12 +169,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script type="text/javascript">
-        function DeleteItem(btn) {
-            // Removes the row closest to the clicked button
-            $(btn).closest('tr').remove();
-
-            // If no rows remain visible after deletion, you could optionally add a base row
-        }
+        
 
         function addNewField(btn, tableId) {
             var table = document.getElementById(tableId);
@@ -206,7 +201,7 @@
                 $(this).val('');
             });
 
-            // add the new row to the end of the tbody
+            // adds new row
             $(table).find('tbody').append(newRow);
 
             
