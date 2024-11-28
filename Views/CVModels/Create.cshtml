@@ -1,0 +1,215 @@
+﻿@model Assignment3_NilavarasuKumar.Models.CVModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Your CV here!</h1>
+
+<h4>Enter Your Details</h4>
+<hr />
+
+     
+    <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+         <div class="col-md-12"> 
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactNumber" class="control-label"></label>
+                <input asp-for="ContactNumber" class="form-control" />
+                <span asp-validation-for="ContactNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProfessionalSummary" class="control-label"></label>
+                <input asp-for="ProfessionalSummary" class="form-control" />
+                <span asp-validation-for="ProfessionalSummary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+         </div>
+        @*Work Experinces*@
+       @**@ <h3>Work Experience</h3>
+        <hr />
+        <table id="ExpTable" class="table">
+            <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Job Title</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Job Description</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.WorkExperiences.Count; i++)
+
+                {
+                    <tr>
+                        <td>@Html.EditorFor(x => x.WorkExperiences[i].CompanyName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.EditorFor(x => x.WorkExperiences[i].JobTitle, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.EditorFor(x => x.WorkExperiences[i].StartDate, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.EditorFor(x => x.WorkExperiences[i].EndDate, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.EditorFor(x => x.WorkExperiences[i].JobDescription, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <input type="hidden" asp-for="WorkExperiences[i].CVModelId" value="@Model.Id" />
+                        <td>
+                            <button type="button" class="btn btn-info" onclick="addNewField(this, 'ExpTable')">Add</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @*Skills*@
+        <h4>Skills</h4>
+        <table id="SkillTable" class="table">
+            <thead>
+                <tr>
+                    <th>Skill Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Skills.Count; i++)
+
+                {
+                    <tr>
+                        <td>@Html.EditorFor(x => x.Skills[i].SkillName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <input type="hidden" asp-for="Skills[i].CVModelId" value="@Model.Id" />
+                        <td>
+                            <button type="button" class="btn btn-info" onclick="addNewField(this, 'SkillTable')">Add</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @*Education*@
+        <h3>Education</h3>
+        <hr />
+        <table id="EduTable" class="table">
+            <thead>
+                <tr>
+                    <th>Degree Name</th>
+                    <th>Institution Name</th>
+                    <th>Graduation Date</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.EducationList.Count; i++)
+
+                {
+                    <tr>
+                        <td>@Html.EditorFor(x => x.EducationList[i].Degree, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.EditorFor(x => x.EducationList[i].InstitutionName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.EditorFor(x => x.EducationList[i].GraduationDate, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        
+                        <input type="hidden" asp-for="WorkExperiences[i].CVModelId" value="@Model.Id" />
+                        <td>
+                            <button type="button" class="btn btn-info" onclick="addNewField(this, 'EduTable')">Add</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <h4>Languages</h4>
+        <table id="LangTable" class="table">
+            <thead>
+                <tr>
+                    <th>Language Name</th>
+                    <th>Proficiency Level</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Languages.Count; i++)
+
+                {
+                    <tr>
+                        <td>@Html.EditorFor(x => x.Languages[i].LanguageName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.EditorFor(x => x.Languages[i].ProficiencyLevel, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <input type="hidden" asp-for="Languages[i].CVModelId" value="@Model.Id" />
+                        <td>
+                            <button type="button" class="btn btn-info" onclick="addNewField(this, 'LangTable')">Add</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary btn-block" />
+        </div>
+    </div>
+   </form>
+   
+
+    
+
+
+<div class ="back-to-list-btn">
+    <a asp-action="Index" class="btn btn-dark">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        function DeleteItem(btn) {
+            // Removes the row closest to the clicked button
+            $(btn).closest('tr').remove();
+
+            // If no rows remain visible after deletion, you could optionally add a base row
+        }
+
+        function addNewField(btn, tableId) {
+            var table = document.getElementById(tableId);
+            var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+            if (rows.length === 0) {
+                return;
+            }
+
+            var lastRow = rows[rows.length - 1];
+            var newRow = lastRow.cloneNode(true);
+
+            var lastIndex = rows.length - 1;
+            var newIndex = lastIndex + 1;
+
+            // add dynamic data fields for the new row
+            $(newRow).find('input, select, textarea').each(function () {
+                var nameAttr = $(this).attr('name');
+                var idAttr = $(this).attr('id');
+
+                if (nameAttr) {
+                    $(this).attr('name', nameAttr.replace(`[${lastIndex}]`, `[${newIndex}]`));
+                }
+                if (idAttr) {
+                    $(this).attr('id', idAttr.replace(`_${lastIndex}_`, `_${newIndex}_`));
+                }
+
+                // Clear values
+                $(this).val('');
+            });
+
+            // add the new row to the end of the tbody
+            $(table).find('tbody').append(newRow);
+
+            
+        }
+    </script>
+}

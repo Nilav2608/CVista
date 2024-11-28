@@ -1,0 +1,177 @@
+﻿@model Assignment3_NilavarasuKumar.Models.CVModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Resume Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ContactNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ContactNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProfessionalSummary)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProfessionalSummary)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+    </dl>
+</div>
+<div>
+    
+    @if (Model.WorkExperiences.Any())
+    {
+        <h2>Work Experience</h2>
+        <ul>
+            @foreach (var experience in Model.WorkExperiences)
+            {
+                <li>
+                    <strong>@experience.CompanyName</strong> - @experience.JobTitle
+                    <br />
+                    <em>@experience.StartDate?.ToString("yyyy-MM-dd") - @experience.EndDate?.ToString("yyyy-MM-dd")</em>
+                    <p>@experience.JobDescription</p>
+
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p></p>
+    }
+</div>
+
+<div>
+    
+    @if (Model.Skills.Any())
+    {
+        <h2>Skills</h2>
+        <ul>
+            @foreach (var skill in Model.Skills)
+            {
+                <li>
+                   
+                    <p>@skill.SkillName</p>
+
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p></p>
+    }
+</div>
+<div>
+    
+    @if (Model.EducationList.Any())
+    {
+        <h2>Education</h2>
+        <ul>
+            @foreach (var education in Model.EducationList)
+            {
+                <li>
+
+                    <p>@education.InstitutionName</p>
+                    <p>@education.Degree</p>
+                    <p>@education.GraduationDate</p>
+
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p></p>
+    }
+</div>
+
+<div>
+
+    @if (Model.Languages.Any())
+    {
+        <h2>Languages</h2>
+        <ul>
+            @foreach (var languages in Model.Languages)
+            {
+                <li>
+
+                    <p>@languages.LanguageName</p>
+
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p></p>
+    }
+</div>
+
+
+
+<hr />
+
+<div>
+    <h4>Preview Templates</h4>
+    <div class="d-flex justify-content-around">
+        <div>
+            <h5>Template 1</h5>
+            <iframe src="/CVModels/TemplatePreview?template=template1&id=@Model?.Id" width="600" height="800" style="border:1px solid #ccc;"></iframe>
+            <a asp-action="TemplatePreview" asp-route-template="template1" asp-route-id="@Model?.Id" class="btn btn-info mt-2">Preview Template 1</a>
+        </div>
+        <div>
+            <h5>Template 2</h5>
+            <iframe src="/CVModels/TemplatePreview?template=template2&id=@Model?.Id" width="600" height="800" style="border:1px solid #ccc;"></iframe>
+            <a asp-action="TemplatePreview" asp-route-template="template2" asp-route-id="@Model?.Id" class="btn btn-info mt-2">Preview Template 2</a>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div>
+    <h4 style="margin-top:40px">Choose Your CV Template To Download</h4>
+    <form asp-action="GeneratePdf" method="get">
+        <input type="hidden" name="id" value="@Model?.Id" />
+        <div class="form-group">
+            <label for="templateChoice">Select Template:</label>
+            <select id="templateChoice" name="template" class="form-control">
+                <option value="ResumeTemplate">Template 1</option>
+                <option value="ResumeTemplate2">Template 2</option>
+            </select>
+        </div>
+        <button type="submit" style="margin-left:0px; margin-bottom:40px" class="btn btn-success">Download Selected Template</button>
+    </form>
+</div>
+
+<div class="back-edit-box">
+    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index" class="btn btn-dark">Back to List</a>
+  @* <a asp-action="GeneratePdf" asp-route-id="@Model?.Id" class="btn btn-success">Download PDF Resume</a>*@ 
+</div>

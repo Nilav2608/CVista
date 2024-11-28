@@ -1,0 +1,197 @@
+﻿@model Assignment3_NilavarasuKumar.Models.CVModel
+
+@{
+    ViewData["Title"] = "ResumeTemplate2";
+}
+@{
+    Layout = ViewBag.UseLayout != null && !(bool)ViewBag.UseLayout ? null : "_Layout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Model.FullName - Resume</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #fafafa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+            .header h1 {
+                font-size: 3.5em;
+                color: #4CAF50;
+                margin: 0;
+            }
+
+            .header p {
+                font-size: 1.2em;
+                color: #777;
+                margin-top: 10px;
+            }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+            .section h2 {
+                font-size: 1.8em;
+                color: #444;
+                text-transform: uppercase;
+                margin-bottom: 15px;
+                border-bottom: 2px solid #4CAF50;
+                padding-bottom: 5px;
+            }
+
+            .section ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+                .section ul li {
+                    padding: 8px 0;
+                    border-bottom: 1px solid #eee;
+                    font-size: 1.1em;
+                }
+
+                    .section ul li:last-child {
+                        border-bottom: none;
+                    }
+
+            .section p {
+                font-size: 1.1em;
+                line-height: 1.6;
+                color: #555;
+            }
+
+        .footer {
+            text-align: center;
+            font-size: 1em;
+            color: #aaa;
+            margin-top: 40px;
+        }
+
+        .contact-info {
+            margin-top: 10px;
+        }
+
+            .contact-info span {
+                font-weight: 600;
+                color: #444;
+            }
+
+        .experience-info {
+            font-style: italic;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>@Model.FullName</h1>
+            <p class="contact-info">
+                <span>Email:</span> @Model.Email |
+                <span>Phone:</span> @Model.ContactNumber |
+                <span>Location:</span> @Model.Address
+            </p>
+        </div>
+
+        <!-- Professional Summary Section -->
+        <div class="section">
+            <h2>Professional Summary</h2>
+            <p>@Model.ProfessionalSummary</p>
+        </div>
+
+        <!-- Work Experience Section -->
+        @if (Model.WorkExperiences.Any())
+        {
+            <div class="section">
+                <h2>Work Experience</h2>
+                <ul>
+                    @foreach (var experience in Model.WorkExperiences)
+                    {
+                        <li>
+                            <strong>@experience.CompanyName</strong> - <em>@experience.JobTitle</em><br />
+                            <span class="experience-info">@experience.StartDate?.ToString("MMM yyyy") - @experience.EndDate?.ToString("MMM yyyy")</span>
+                            <p>@experience.JobDescription</p>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <!-- Skills Section -->
+        @if (Model.Skills.Any())
+        {
+            <div class="section">
+                <h2>Skills</h2>
+                <ul>
+                    @foreach (var skill in Model.Skills)
+                    {
+                        <li>@skill.SkillName</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <!-- Education Section -->
+        @if (Model.EducationList.Any())
+        {
+            <div class="section">
+                <h2>Education</h2>
+                <ul>
+                    @foreach (var education in Model.EducationList)
+                    {
+                        <li>
+                            <strong>@education.InstitutionName</strong> - @education.Degree
+                            <br />
+                            <span>@education.GraduationDate?.ToString("yyyy")</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <!-- Languages Section -->
+        @if (Model.Languages.Any())
+        {
+            <div class="section">
+                <h2>Languages</h2>
+                <ul>
+                    @foreach (var language in Model.Languages)
+                    {
+                        <li>@language.LanguageName</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <!-- Footer Section -->
+        <div class="footer">
+            <p>Generated by CVista ✨</p>
+        </div>
+    </div>
+</body>
+</html>

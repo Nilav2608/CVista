@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="homepage-container">
+    <div class="info-section">
+        <h1 class="title">Welcome to CVista</h1>
+        <p class="description">
+            Create professional, sleek, and stylish CVs in no time.
+        </p>
+    </div>
+    <div class="action-section">
+        <a asp-controller="CVModels" asp-action="Create" class="create-cv-button">
+            <div class="button-content">
+                <span class="plus-icon">+</span>
+                <span class="button-text">Create Your CV</span>
+            </div>
+        </a>
+    </div>
+</div>
